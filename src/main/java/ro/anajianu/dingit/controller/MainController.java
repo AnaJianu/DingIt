@@ -2,10 +2,9 @@ package ro.anajianu.dingit.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import ro.anajianu.dingit.model.User;
 import ro.anajianu.dingit.repository.UserRepository;
 
@@ -13,11 +12,16 @@ import ro.anajianu.dingit.repository.UserRepository;
  * Created by ana on 23/05/2017.
  */
 @Controller
-@RequestMapping(path = "/dingit")
 public class MainController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @RequestMapping(value = "/")
+    public String showWelcomePage(){
+        return "start/start";
+    }
+
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
@@ -30,6 +34,12 @@ public class MainController {
         userRepository.save(newUser);
 
         return "Saved";
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String performLoginUser(@RequestParam(value = "username") String username,
+                                   @RequestParam(value = "password") String password) {
+        return "done";
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
