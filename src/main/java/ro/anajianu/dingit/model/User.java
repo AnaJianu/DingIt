@@ -20,6 +20,12 @@ public class User {
 
     private String username;
 
+    private String password;
+
+    private String email;
+
+    private String country;
+
     private String city;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
@@ -59,6 +65,46 @@ public class User {
         this.username = username;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
+    }
+
+    public List<Advice> getAdvices() {
+        return advices;
+    }
+
+    public void setAdvices(List<Advice> advices) {
+        this.advices = advices;
+    }
+
     public String getCity() {
         return city;
     }
@@ -70,10 +116,15 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id='" + id + '\'' +
+                "id=" + id +
                 ", fullName='" + fullName + '\'' +
                 ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", country='" + country + '\'' +
                 ", city='" + city + '\'' +
+                ", questions=" + questions +
+                ", advices=" + advices +
                 '}';
     }
 }

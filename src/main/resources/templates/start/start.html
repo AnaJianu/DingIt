@@ -9,27 +9,57 @@
     <script src="../static/js/jquery.min.js" th:src="@{js/jquery.min.js}"></script>
     <script src="../static/js/tether.min.js" th:src="@{js/tether.min.js}"></script>
     <script src="../static/js/bootstrap.min.js" th:src="@{js/bootstrap.min.js}"></script>
+    <script src="../static/js/start/start.js" th:src="@{js/start/start.js}"></script>
 </head>
 <body>
 <div class="container">
+    <div id="signInForm">
+        <form class="form-signin">
+            <h1 class="start-title">Let's DingIt</h1>
+            <label for="inputUsernameForSignIn" class="sr-only">Username</label>
+            <input type="text" id="inputUsernameForSignIn" class="form-control" placeholder="Username"/>
+            <label for="inputPasswordForSignIn" class="sr-only">Password</label>
+            <input type="password" id="inputPasswordForSignIn" class="form-control" placeholder="Password"/>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="remember-me"> Remember me </input>
+                </label>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" id="signInButton"
+                    onclick="performSignIn()">Sign in</button>
+            <br/>
+            <br/>
+            <p>Wait, I'm not a member yet!</p>
+        </form>
 
-    <form class="form-signin">
-        <h1 class="start-title">Let's DingIt</h1>
-        <label for="inputEmail" class="sr-only">Username</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address"/>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password"/>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" value="remember-me"> Remember me </input>
-            </label>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        <br/>
-        <br/>
-        <p>Wait, I'm not a member yet!</p>
-        <button class="btn btn-lg btn-danger btn-block" type="submit">Sign up</button>
-    </form>
+        <button class="btn btn-lg btn-danger btn-block" type="submit" id="signUpButton"
+                onclick="performSignUp()">Sign up</button>
+
+    </div>
+
+    <div id="signUpForm">
+        <form class="form-signin">
+            <h1 class="start-title">Let's DingIt</h1>
+            <label for="inputFullName" class="sr-only">Full name</label>
+            <input type="text" id="inputFullName" class="form-control" placeholder="Full name"/>
+            <label for="inputUsername" class="sr-only">Username</label>
+            <input type="text" id="inputUsername" class="form-control" placeholder="Username"/>
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Password"/>
+            <label for="inputEmail" class="sr-only">Email</label>
+            <input type="email" id="inputEmail" class="form-control" placeholder="Email"/>
+            <label for="inputCity" class="sr-only">City</label>
+            <input type="text" id="inputCity" class="form-control" placeholder="City"/>
+            <label for="inputCountry" class="sr-only">Country</label>
+            <input type="text" id="inputCountry" class="form-control" placeholder="Country"/>
+            <!--<dialog type="text" id="inputCountry" class="form-control" th:placeholder="Country"/>-->
+            <button class="btn btn-lg btn-danger btn-block" type="submit" id="submitButton"
+                    onclick="sendRequestForRegistration()">Submit</button>
+        </form>
+
+
+    </div>
+
 </div> <!-- /container -->
 </body>
 </html>
