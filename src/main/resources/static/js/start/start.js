@@ -35,7 +35,6 @@ function sendRequestForRegistration() {
                 $('postSubmitMessage').show();
             }
         },
-
         failure: function (registrationResponse) {
             $('#postSubmitMessage').text("An error has occurred. Please retry later!");
             $('postSubmitMessage').show();

@@ -38,24 +38,24 @@
     </div>
 
     <div class="form-signin" id="signUpForm">
-        <form>
+        <form action="#" method="post">
             <h1 class="start-title">Let's DingIt</h1>
             <label for="inputFullName" class="sr-only">Full name</label>
-            <input type="text" id="inputFullName" class="form-control" placeholder="Full name"/>
+            <input type="text" id="inputFullName" name="inputFullName" class="form-control" placeholder="Full name"/>
             <label for="inputUsername" class="sr-only">Username</label>
-            <input type="text" id="inputUsername" class="form-control" placeholder="Username"/>
+            <input type="text" id="inputUsername" name="inputUsername" class="form-control" placeholder="Username"/>
             <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Password"/>
+            <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password"/>
             <label for="inputEmail" class="sr-only">Email</label>
-            <input type="email" id="inputEmail" class="form-control" placeholder="Email"/>
+            <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="Email"/>
             <label for="inputCity" class="sr-only">City</label>
-            <input type="text" id="inputCity" class="form-control" placeholder="City"/>
+            <input type="text" id="inputCity" name="inputCity" class="form-control" placeholder="City"/>
             <label for="inputCountry" class="sr-only">Country</label>
-            <input type="text" id="inputCountry" class="form-control" placeholder="Country"/>
+            <input type="text" id="inputCountry" name="inputCountry" class="form-control" placeholder="Country"/>
             <!--<dialog type="text" id="inputCountry" class="form-control" th:placeholder="Country"/>-->
+            <button class="btn btn-lg btn-danger btn-block" type="submit" id="submitButton"
+                    onclick="sendRequestForRegistration()">Submit</button>
         </form>
-        <button class="btn btn-lg btn-danger btn-block" type="submit" id="submitButton"
-                onclick="sendRequestForRegistration()">Submit</button>
         <p id="postSubmitMessage"></p>
 
     </div>

@@ -31,13 +31,12 @@ public class MainController {
 
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> addNewUser(@RequestParam String fullName,
-                                          @RequestParam String username,
-                                          @RequestParam String password,
-                                          @RequestParam String email,
-                                          @RequestParam String city,
-                                          @RequestParam String country,
+    public Map<String, Object> addNewUser(@RequestParam("inputFullName") String fullName,
+                                          @RequestParam("inputUsername") String username,
+                                          @RequestParam("inputPassword") String password,
+                                          @RequestParam("inputEmail") String email,
+                                          @RequestParam("inputCity") String city,
+                                          @RequestParam("inputCountry") String country,
                                           HttpServletRequest httpServletRequest,
                                           HttpServletResponse httpServletResponse) {
 
