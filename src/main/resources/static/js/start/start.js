@@ -22,4 +22,23 @@ var AJAX = {
 
 function sendRequestForRegistration() {
 //TODO: validate inputs and check the registrationResponse
+
+    $.ajax({
+        type: "POST",
+        url: AJAX.SEND_REQUEST_FOR_REGISTRATION,
+        success:function (registrationResponse) {
+            if(registrationResponse.success) {
+                $('#postSubmitMessage').text(registrationResponse.message);
+                $('postSubmitMessage').show();
+            } else {
+                $('#postSubmitMessage').text(registrationResponse.message);
+                $('postSubmitMessage').show();
+            }
+        },
+
+        failure: function (registrationResponse) {
+            $('#postSubmitMessage').text("An error has occurred. Please retry later!");
+            $('postSubmitMessage').show();
+        }
+        })
 }

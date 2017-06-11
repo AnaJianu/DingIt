@@ -13,8 +13,8 @@
 </head>
 <body>
 <div class="container">
-    <div id="signInForm">
-        <form class="form-signin">
+    <div class="form-signin" id="signInForm">
+        <form>
             <h1 class="start-title">Let's DingIt</h1>
             <label for="inputUsernameForSignIn" class="sr-only">Username</label>
             <input type="text" id="inputUsernameForSignIn" class="form-control" placeholder="Username"/>
@@ -37,8 +37,8 @@
 
     </div>
 
-    <div id="signUpForm">
-        <form class="form-signin">
+    <div class="form-signin" id="signUpForm">
+        <form>
             <h1 class="start-title">Let's DingIt</h1>
             <label for="inputFullName" class="sr-only">Full name</label>
             <input type="text" id="inputFullName" class="form-control" placeholder="Full name"/>
@@ -53,10 +53,10 @@
             <label for="inputCountry" class="sr-only">Country</label>
             <input type="text" id="inputCountry" class="form-control" placeholder="Country"/>
             <!--<dialog type="text" id="inputCountry" class="form-control" th:placeholder="Country"/>-->
-            <button class="btn btn-lg btn-danger btn-block" type="submit" id="submitButton"
-                    onclick="sendRequestForRegistration()">Submit</button>
         </form>
-
+        <button class="btn btn-lg btn-danger btn-block" type="submit" id="submitButton"
+                onclick="sendRequestForRegistration()">Submit</button>
+        <p id="postSubmitMessage"></p>
 
     </div>
 

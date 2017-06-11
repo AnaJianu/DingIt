@@ -43,6 +43,11 @@ body {
     display: none;
 }
 
+#postSubmitMessage {
+    display: none;
+    font-family: 'Clicker Script', cursive;
+}
+
 .start-title {
     font-family: 'Clicker Script', cursive;
 }

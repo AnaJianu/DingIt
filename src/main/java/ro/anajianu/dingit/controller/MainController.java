@@ -1,6 +1,7 @@
 package ro.anajianu.dingit.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
@@ -9,6 +10,8 @@ import org.springframework.web.servlet.ModelAndView;
 import ro.anajianu.dingit.model.User;
 import ro.anajianu.dingit.repository.UserRepository;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,12 +32,14 @@ public class MainController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public String addNewUser(@RequestParam String fullName,
-                             @RequestParam String username,
-                             @RequestParam String password,
-                             @RequestParam String email,
-                             @RequestParam String city,
-                             @RequestParam String country) {
+    public Map<String, Object> addNewUser(@RequestParam String fullName,
+                                          @RequestParam String username,
+                                          @RequestParam String password,
+                                          @RequestParam String email,
+                                          @RequestParam String city,
+                                          @RequestParam String country,
+                                          HttpServletRequest httpServletRequest,
+                                          HttpServletResponse httpServletResponse) {
 
 
         Assert.notNull(username, "You must enter your username");
@@ -43,12 +48,11 @@ public class MainController {
         User newUser = new User();
 
         User existingUserByUsername = userRepository.findByUsername(username);
-//        maybe searching by password is pointless
-        User existingUserByPassword = userRepository.findByPassword(password);
+        User existingUserByEmail = userRepository.findByEmail(email);
 
         Map<String, Object> registrationResponse = new HashMap<>();
 
-        if (existingUserByUsername == null && existingUserByPassword == null){
+        if (existingUserByUsername == null && existingUserByEmail == null){
 
             newUser.setFullName(fullName);
             newUser.setUsername(username);
@@ -60,13 +64,23 @@ public class MainController {
             registrationResponse.put("success", true);
             registrationResponse.put("message", "Your registration has been successful!");
             userRepository.save(newUser);
-        } else {
+            return registrationResponse;
+
+        } else if (existingUserByUsername == null && existingUserByEmail != null){
             registrationResponse.put("success", false);
-            registrationResponse.put("message", "User already exists!");
+            registrationResponse.put("message", "This email already exists!");
+            return registrationResponse;
+        } else if (existingUserByUsername != null && existingUserByEmail == null) {
+            registrationResponse.put("success", false);
+            registrationResponse.put("message", "This username already exists!");
+            return registrationResponse;
         }
 
+            registrationResponse.put("success", false);
+            registrationResponse.put("message", "You are already registered. " +
+                    "Please sign in with your username and password!");
 
-        return "Saved";
+        return registrationResponse;
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
