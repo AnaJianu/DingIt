@@ -15,29 +15,34 @@ function performSignUp() {
   $('#signUpForm').show();
 }
 
+
+var hostname = "http://localhost:8080";
+
 var AJAX = {
-    SEND_REQUEST_FOR_REGISTRATION: '<spring:url value = "/register" />',
-    CONFIRM_REGISTRATION: '<spring:url value = "/confirmRegistration" />'
+    SEND_REQUEST_FOR_REGISTRATION: "/register",
+    CONFIRM_REGISTRATION: "/confirmRegistration"
 };
 
 function sendRequestForRegistration() {
 //TODO: validate inputs and check the registrationResponse
-
+    $('#registerForm').preventDefault();
     $.ajax({
         type: "POST",
         url: AJAX.SEND_REQUEST_FOR_REGISTRATION,
         success:function (registrationResponse) {
+            console.log('Success registration response: '+ registrationResponse);
             if(registrationResponse.success) {
                 $('#postSubmitMessage').text(registrationResponse.message);
-                $('postSubmitMessage').show();
+                $('#postSubmitMessage').show();
             } else {
                 $('#postSubmitMessage').text(registrationResponse.message);
-                $('postSubmitMessage').show();
+                $('#postSubmitMessage').show();
             }
         },
         failure: function (registrationResponse) {
+            console.log('Error registration response: '+ registrationResponse);
             $('#postSubmitMessage').text("An error has occurred. Please retry later!");
-            $('postSubmitMessage').show();
+            $('#postSubmitMessage').show();
         }
         })
 }
