@@ -31,19 +31,12 @@ public class MainController {
 
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public Map<String, Object> addNewUser(@RequestParam("inputFullName") String fullName,
-                                          @RequestParam("inputUsername") String username,
-                                          @RequestParam("inputPassword") String password,
-                                          @RequestParam("inputEmail") String email,
-                                          @RequestParam("inputCity") String city,
-                                          @RequestParam("inputCountry") String country,
-                                          HttpServletRequest httpServletRequest,
-                                          HttpServletResponse httpServletResponse) {
-
-
-        Assert.notNull(username, "You must enter your username");
-        Assert.notNull(password, "You must introduce your password");
-
+    public Map<String, Object> addNewUser(@RequestParam("fullName") String fullName,
+                                          @RequestParam("username") String username,
+                                          @RequestParam("password") String password,
+                                          @RequestParam("email") String email,
+                                          @RequestParam("city") String city,
+                                          @RequestParam("country") String country) {
         User newUser = new User();
 
         User existingUserByUsername = userRepository.findByUsername(username);

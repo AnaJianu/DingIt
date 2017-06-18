@@ -16,10 +16,13 @@
     <div class="form-signin" id="signInForm">
         <form>
             <h1 class="start-title">Let's DingIt</h1>
+
             <label for="inputUsernameForSignIn" class="sr-only">Username</label>
-            <input type="text" id="inputUsernameForSignIn" class="form-control" placeholder="Username"/>
+            <input type="text" id="inputUsernameForSignIn" class="form-control" placeholder="Username" required="required"/>
+
             <label for="inputPasswordForSignIn" class="sr-only">Password</label>
-            <input type="password" id="inputPasswordForSignIn" class="form-control" placeholder="Password"/>
+            <input type="password" id="inputPasswordForSignIn" class="form-control" placeholder="Password" required="required"/>
+
             <div class="checkbox">
                 <label>
                     <input type="checkbox" value="remember-me"> Remember me </input>
@@ -38,24 +41,30 @@
     </div>
 
     <div class="form-signin" id="signUpForm">
-        <form id="registerForm" method="post">
+        <form id="registerForm" class="registerForm" method="post">
             <h1 class="start-title">Let's DingIt</h1>
+
             <label for="inputFullName" class="sr-only">Full name</label>
-            <input type="text" id="inputFullName" name="inputFullName" class="form-control" placeholder="Full name"/>
+            <input type="text" id="inputFullName" name="inputFullName" class="form-control" placeholder="Full name" required="required"/>
+
             <label for="inputUsername" class="sr-only">Username</label>
-            <input type="text" id="inputUsername" name="inputUsername" class="form-control" placeholder="Username"/>
+            <input type="text" id="inputUsername" name="inputUsername" class="form-control" placeholder="Username" required="required"/>
+
             <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password"/>
+            <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password" required="required"/>
+
             <label for="inputEmail" class="sr-only">Email</label>
-            <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="Email"/>
+            <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="Email" required="required"/>
+
             <label for="inputCity" class="sr-only">City</label>
-            <input type="text" id="inputCity" name="inputCity" class="form-control" placeholder="City"/>
+            <input type="text" id="inputCity" name="inputCity" class="form-control" placeholder="City" required="required"/>
+
             <label for="inputCountry" class="sr-only">Country</label>
-            <input type="text" id="inputCountry" name="inputCountry" class="form-control" placeholder="Country"/>
+            <input type="text" id="inputCountry" name="inputCountry" class="form-control" placeholder="Country" required="required"/>
             <!--<dialog type="text" id="inputCountry" class="form-control" th:placeholder="Country"/>-->
-            <button class="btn btn-lg btn-danger btn-block" type="submit" id="submitButton"
-                    onclick="sendRequestForRegistration()">Submit</button>
+            <button class="btn btn-lg btn-danger btn-block" type="submit" id="submitButton">Submit</button>
         </form>
+
         <p id="postSubmitMessage"></p>
 
     </div>

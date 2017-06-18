@@ -2,8 +2,12 @@
  * Created by ana on 10/06/2017.
  */
 
-
-//do we need the .ready(function() {myscript}) or $(document).ready() functions?
+$(document).ready(function () {
+    $('#registerForm').submit(function (e) {
+        e.preventDefault();
+        sendRequestForRegistration();
+    });
+});
 
 function performSignIn() {
 
@@ -25,10 +29,24 @@ var AJAX = {
 
 function sendRequestForRegistration() {
 //TODO: validate inputs and check the registrationResponse
-    $('#registerForm').preventDefault();
+
+    var fullNameValue = $('#inputFullName').val();
+    var usernameValue = $('#inputUsername').val();
+    var passwordValue = $('#inputPassword').val();
+    var emailValue = $('#inputEmail').val();
+    var cityValue = $('#inputCity').val();
+    var countryValue = $('#inputCountry').val();
+
     $.ajax({
         type: "POST",
         url: AJAX.SEND_REQUEST_FOR_REGISTRATION,
+        data: jQuery.param({fullName: fullNameValue,
+                            username: usernameValue,
+                            password: passwordValue,
+                            email: emailValue,
+                            city: cityValue,
+                            country: countryValue
+        }),
         success:function (registrationResponse) {
             console.log('Success registration response: '+ registrationResponse);
             if(registrationResponse.success) {
@@ -39,8 +57,8 @@ function sendRequestForRegistration() {
                 $('#postSubmitMessage').show();
             }
         },
-        failure: function (registrationResponse) {
-            console.log('Error registration response: '+ registrationResponse);
+        error: function (registrationResponse) {
+            console.log('Error registration response: '+ JSON.stringify(registrationResponse));
             $('#postSubmitMessage').text("An error has occurred. Please retry later!");
             $('#postSubmitMessage').show();
         }
