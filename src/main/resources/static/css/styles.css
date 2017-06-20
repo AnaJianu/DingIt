@@ -45,7 +45,11 @@ body {
 
 #postSubmitMessage {
     display: none;
-    font-family: 'Clicker Script', cursive;
+    font-family: 'Courgette|Mogra';
+}
+
+#continueButton {
+    display: none;
 }
 
 .start-title {

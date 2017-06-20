@@ -50,8 +50,10 @@ function sendRequestForRegistration() {
         success:function (registrationResponse) {
             console.log('Success registration response: '+ registrationResponse);
             if(registrationResponse.success) {
+                $('#registerForm').hide();
                 $('#postSubmitMessage').text(registrationResponse.message);
                 $('#postSubmitMessage').show();
+                $('#continueButton').show();
             } else {
                 $('#postSubmitMessage').text(registrationResponse.message);
                 $('#postSubmitMessage').show();

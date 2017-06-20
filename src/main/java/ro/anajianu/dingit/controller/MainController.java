@@ -31,6 +31,7 @@ public class MainController {
 
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @ResponseBody
     public Map<String, Object> addNewUser(@RequestParam("fullName") String fullName,
                                           @RequestParam("username") String username,
                                           @RequestParam("password") String password,
@@ -54,7 +55,8 @@ public class MainController {
             newUser.setCountry(country);
 
             registrationResponse.put("success", true);
-            registrationResponse.put("message", "Your registration has been successful!");
+            registrationResponse.put("message", "Your registration has been successful!" +
+                    " Please press CONTINUE to go to the first page!");
             userRepository.save(newUser);
             return registrationResponse;
 
@@ -78,6 +80,17 @@ public class MainController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String performLoginUser(@RequestParam(value = "username") String username,
                                    @RequestParam(value = "password") String password) {
+
+        User existingUserByUsername = userRepository.findByUsername(username);
+        User existingUserByPassword = userRepository.findByPassword(password);
+
+        if (existingUserByUsername != null && existingUserByPassword != null
+                && existingUserByUsername == existingUserByPassword) {
+//            redirect to first page
+//            return new ModelAndView("redirect:/welcome")
+        } else {
+//            show error message (wrong credentials)
+        }
         return "done";
     }
 
