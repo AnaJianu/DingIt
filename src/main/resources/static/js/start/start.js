@@ -9,26 +9,41 @@ $(document).ready(function () {
     });
 });
 
-function performSignIn() {
-
-}
-
-
-function performSignUp() {
-  $('#signInForm').hide();
-  $('#signUpForm').show();
-}
-
-
 var hostname = "http://localhost:8080";
 
 var AJAX = {
     SEND_REQUEST_FOR_REGISTRATION: "/register",
-    CONFIRM_REGISTRATION: "/confirmRegistration"
+    SEND_REQUEST_FOR_LOGIN: "/login"
 };
 
+function performSignIn() {
+     var usernameSignInValue = $('#inputUsernameForSignIn').val();
+     var passwordSignInValue = $('#inputPasswordForSignIn').val();
+
+     $.ajax({
+         type: "POST",
+         url: AJAX.SEND_REQUEST_FOR_LOGIN,
+         data: jQuery.param({username: usernameSignInValue,
+                             password: passwordSignInValue
+         }),
+
+         success:function (loginResponse) {
+             if(loginResponse.success) {
+                window.location.href= hostname+"/welcome";
+             }
+         }
+
+
+     })
+}
+
+function performSignUp() {
+    $('#signInForm').hide();
+    $('#signUpForm').show();
+}
+
 function sendRequestForRegistration() {
-//TODO: validate inputs and check the registrationResponse
+//TODO: validate inputs
 
     var fullNameValue = $('#inputFullName').val();
     var usernameValue = $('#inputUsername').val();

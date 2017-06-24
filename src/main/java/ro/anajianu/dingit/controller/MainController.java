@@ -77,21 +77,30 @@ public class MainController {
         return registrationResponse;
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String performLoginUser(@RequestParam(value = "username") String username,
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> performLoginUser(@RequestParam(value = "username") String username,
                                    @RequestParam(value = "password") String password) {
 
         User existingUserByUsername = userRepository.findByUsername(username);
         User existingUserByPassword = userRepository.findByPassword(password);
 
+        Map<String, Object> loginResponse = new HashMap<>();
+
+        boolean success = false;
         if (existingUserByUsername != null && existingUserByPassword != null
                 && existingUserByUsername == existingUserByPassword) {
-//            redirect to first page
-//            return new ModelAndView("redirect:/welcome")
+            success = true;
+        } else if (existingUserByUsername == null && existingUserByPassword != null){
+            loginResponse.put("message", "Wrong username. Please retry!");
+        } else if (existingUserByUsername != null && existingUserByPassword == null) {
+            loginResponse.put("message", "Wrong password. Please retry!");
         } else {
-//            show error message (wrong credentials)
+            loginResponse.put("message", "The user does not exist. Please sign up to be part of DingIt!");
         }
-        return "done";
+
+        loginResponse.put("success", success);
+        return loginResponse;
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
