@@ -16,7 +16,7 @@
 <body>
 <div class="container">
     <div class="form-signin" id="signInForm">
-        <form>
+        <form id="loginForm">
             <h1 class="start-title">Let's DingIt</h1>
 
             <label for="inputUsernameForSignIn" class="sr-only">Username</label>
@@ -24,6 +24,8 @@
 
             <label for="inputPasswordForSignIn" class="sr-only">Password</label>
             <input type="password" id="inputPasswordForSignIn" class="form-control" placeholder="Password" required="required"/>
+            <div id="signInErrorMessage" class="form-control-feedback has-danger"><p>Username or password
+            incorrect. Please retry!</p></div>
 
             <div class="checkbox">
                 <label>

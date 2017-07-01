@@ -7,6 +7,10 @@ $(document).ready(function () {
         e.preventDefault();
         sendRequestForRegistration();
     });
+    $('#loginForm').submit(function (e) {
+        e.preventDefault();
+        performSignIn();
+    })
 });
 
 var hostname = "http://localhost:8080";
@@ -20,21 +24,26 @@ function performSignIn() {
      var usernameSignInValue = $('#inputUsernameForSignIn').val();
      var passwordSignInValue = $('#inputPasswordForSignIn').val();
 
-     $.ajax({
-         type: "POST",
-         url: AJAX.SEND_REQUEST_FOR_LOGIN,
-         data: jQuery.param({username: usernameSignInValue,
-                             password: passwordSignInValue
-         }),
+     if(!usernameSignInValue.empty() && !passwordSignInValue.empty()) {
+         $.ajax({
+             type: "POST",
+             url: AJAX.SEND_REQUEST_FOR_LOGIN,
+             data: jQuery.param({username: usernameSignInValue,
+                 password: passwordSignInValue
+             }),
 
-         success:function (loginResponse) {
-             if(loginResponse.success) {
-                window.location.href= hostname+"/welcome";
+             success:function (loginResponse) {
+                 if(loginResponse.success) {
+
+                     window.location.href= hostname + "/home";
+                 } else {
+                     $('#signInErrorMessage').show();
+                 }
              }
-         }
 
 
-     })
+         })
+     }
 }
 
 function performSignUp() {

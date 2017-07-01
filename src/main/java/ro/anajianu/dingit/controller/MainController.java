@@ -1,5 +1,7 @@
 package ro.anajianu.dingit.controller;
 
+import org.apache.log4j.spi.LoggerFactory;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
+
 
 /**
  * Created by ana on 23/05/2017.
@@ -91,12 +94,6 @@ public class MainController {
         if (existingUserByUsername != null && existingUserByPassword != null
                 && existingUserByUsername == existingUserByPassword) {
             success = true;
-        } else if (existingUserByUsername == null && existingUserByPassword != null){
-            loginResponse.put("message", "Wrong username. Please retry!");
-        } else if (existingUserByUsername != null && existingUserByPassword == null) {
-            loginResponse.put("message", "Wrong password. Please retry!");
-        } else {
-            loginResponse.put("message", "The user does not exist. Please sign up to be part of DingIt!");
         }
 
         loginResponse.put("success", success);
