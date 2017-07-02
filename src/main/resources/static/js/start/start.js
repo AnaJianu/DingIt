@@ -13,7 +13,7 @@ $(document).ready(function () {
     })
 });
 
-var hostname = "http://localhost:8080";
+var hostname = "http://www.dingit.com:8080";
 
 var AJAX = {
     SEND_REQUEST_FOR_REGISTRATION: "/register",
@@ -24,7 +24,7 @@ function performSignIn() {
      var usernameSignInValue = $('#inputUsernameForSignIn').val();
      var passwordSignInValue = $('#inputPasswordForSignIn').val();
 
-     if(!usernameSignInValue.empty() && !passwordSignInValue.empty()) {
+     if(usernameSignInValue.length != 0 && passwordSignInValue.length != 0) {
          $.ajax({
              type: "POST",
              url: AJAX.SEND_REQUEST_FOR_LOGIN,
@@ -35,7 +35,7 @@ function performSignIn() {
              success:function (loginResponse) {
                  if(loginResponse.success) {
 
-                     window.location.href= hostname + "/home";
+                     window.location.href= hostname + "/home/";
                  } else {
                      $('#signInErrorMessage').show();
                  }
