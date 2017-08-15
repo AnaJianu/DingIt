@@ -35,7 +35,7 @@ function performSignIn() {
              success:function (loginResponse) {
                  if(loginResponse.success) {
 
-                     window.location.href= hostname + "/home/";
+                     window.location.href= hostname + "/home";
                  } else {
                      $('#signInErrorMessage').show();
                  }

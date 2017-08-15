@@ -1,16 +1,25 @@
 package ro.anajianu.dingit.controller;
 
-import org.hibernate.ObjectDeletedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.servlet.ModelAndView;
+import ro.anajianu.dingit.model.Advice;
+import ro.anajianu.dingit.model.Question;
 import ro.anajianu.dingit.model.User;
+import ro.anajianu.dingit.repository.AdviceRepository;
+import ro.anajianu.dingit.repository.QuestionRepository;
 import ro.anajianu.dingit.repository.UserRepository;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,14 +34,40 @@ public class HomepageController {
     @Autowired
     private UserRepository userRepository;
 
-    @RequestMapping(value = "/")
+    @Autowired
+    private QuestionRepository questionRepository;
+
+    @Autowired
+    private AdviceRepository adviceRepository;
+
+    @RequestMapping(value = "")
     public String showHomepage() {
         return "homepage/homepage";
     }
 
-    @RequestMapping(value = "/user/questions")
+    @RequestMapping(value = "/my/questions")
+    public String getAllQuestionsForCurrentUser () {
+
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session = attr.getRequest().getSession(true);
+        User currentUser = (User) session.getAttribute("currentUser");
+
+        List<Question> allQuestionsForCurrentUser = questionRepository.findByUserId(currentUser.getId());
+
+//        TODO: build a dynamic table
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("userQuestions", allQuestionsForCurrentUser);
+        return "user/questions";
+    }
+
+    @RequestMapping(value = "/my/advices")
     @ResponseBody
-    public Map<String, Object> getAllQuestionsForCurrentUser () {
+    public  Map<String, Object> getAllAnswersForCurrentUser () {
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session = attr.getRequest().getSession(true);
+        User currentUser = (User) session.getAttribute("currentUser");
+        List<Advice> allAdvicesForCurrentUser = adviceRepository.findAllByUserId(currentUser.getId());
+
         Map<String, Object> result = new HashMap<>();
         return result;
     }

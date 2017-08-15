@@ -1,5 +1,7 @@
 package ro.anajianu.dingit.model;
 
+import org.hibernate.annotations.Proxy;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -57,13 +59,4 @@ public class Question {
         this.user = user;
     }
 
-    @Override
-    public String toString() {
-        return "Question{" +
-                "id=" + id +
-                ", questionText='" + questionText + '\'' +
-                ", advices=" + advices +
-                ", user=" + user +
-                '}';
-    }
 }

@@ -8,12 +8,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import ro.anajianu.dingit.model.User;
 import ro.anajianu.dingit.repository.UserRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -86,14 +89,15 @@ public class MainController {
                                    @RequestParam(value = "password") String password) {
 
         User existingUserByUsername = userRepository.findByUsername(username);
-        User existingUserByPassword = userRepository.findByPassword(password);
 
         Map<String, Object> loginResponse = new HashMap<>();
 
         boolean success = false;
-        if (existingUserByUsername != null && existingUserByPassword != null
-                && existingUserByUsername == existingUserByPassword) {
+        if (existingUserByUsername != null && existingUserByUsername.getPassword().equals(password)) {
             success = true;
+            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+            HttpSession session = attr.getRequest().getSession(true);
+            session.setAttribute("currentUser", existingUserByUsername);
         }
 
         loginResponse.put("success", success);
