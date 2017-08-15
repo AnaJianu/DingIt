@@ -110,9 +110,52 @@
                 <hr class="star-primary"/>
             </div>
         </div>
-        <div class="qa-buttons">
-            <button type="button" class="btn btn-lg btn-danger" onclick="seeYourQuestions()">Your Questions</button>
-            <button type="button" class="btn btn-lg btn-success" onclick="seeYourAnswers()">My Answers</button>
+        <!--<div class="qa-buttons">-->
+            <!--<button type="button" class="btn btn-lg btn-danger" onclick="seeYourQuestions()">Your Questions</button>-->
+            <!--<button type="button" class="btn btn-lg btn-success" onclick="seeYourAnswers()">My Answers</button>-->
+        <!--</div>-->
+        <div>
+            <h3>My Questions</h3>
+            <table class="table table-striped" id="userQuestions">
+                <thead>
+                <tr>
+                    <th>Nr.</th>
+                    <th>Question</th>
+                    <th>Advices</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr th:each="question : ${userQuestions}">
+                    <td width="20%" th:text="${question.id}"></td>
+                    <td width="20%" th:text="${question.questionText}"></td>
+                    <td width="20%" th:each="advice: ${question.advices}">
+                                <p th:text="${advice.adviceText}"></p>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+
+            <h3>My Advices</h3>
+            <table class="table table-striped" id="userAdvices">
+                <thead>
+                <tr>
+                    <th>Nr.</th>
+                    <th>Advice</th>
+                    <th>Question</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr th:each="advice : ${userAdvices}">
+                    <td width="20%" th:text="${advice.id}"></td>
+                    <td width="20%" th:text="${advice.adviceText}"></td>
+                    <td width="20%" th:text="${advice.question.questionText}"></td>
+                </tr>
+
+                </tbody>
+            </table>
         </div>
 
     </div>

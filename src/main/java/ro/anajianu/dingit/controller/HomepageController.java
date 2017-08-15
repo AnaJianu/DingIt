@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -41,35 +42,45 @@ public class HomepageController {
     private AdviceRepository adviceRepository;
 
     @RequestMapping(value = "")
-    public String showHomepage() {
-        return "homepage/homepage";
-    }
-
-    @RequestMapping(value = "/my/questions")
-    public String getAllQuestionsForCurrentUser () {
-
+    public String showHomepage(Model model) {
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         HttpSession session = attr.getRequest().getSession(true);
         User currentUser = (User) session.getAttribute("currentUser");
 
         List<Question> allQuestionsForCurrentUser = questionRepository.findByUserId(currentUser.getId());
-
-//        TODO: build a dynamic table
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("userQuestions", allQuestionsForCurrentUser);
-        return "user/questions";
-    }
-
-    @RequestMapping(value = "/my/advices")
-    @ResponseBody
-    public  Map<String, Object> getAllAnswersForCurrentUser () {
-        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-        HttpSession session = attr.getRequest().getSession(true);
-        User currentUser = (User) session.getAttribute("currentUser");
         List<Advice> allAdvicesForCurrentUser = adviceRepository.findAllByUserId(currentUser.getId());
+//        ModelAndView modelAndView = new ModelAndView();
+        model.addAttribute("userQuestions", allQuestionsForCurrentUser);
+        model.addAttribute("userAdvices", allAdvicesForCurrentUser);
 
-        Map<String, Object> result = new HashMap<>();
-        return result;
+        return "homepage/homepage";
     }
+
+//    @RequestMapping(value = "/my/questions")
+//    public String getAllQuestionsForCurrentUser () {
+//
+//        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+//        HttpSession session = attr.getRequest().getSession(true);
+//        User currentUser = (User) session.getAttribute("currentUser");
+//
+//        List<Question> allQuestionsForCurrentUser = questionRepository.findByUserId(currentUser.getId());
+//
+////        TODO: build a dynamic table
+//        ModelAndView modelAndView = new ModelAndView();
+//        modelAndView.addObject("userQuestions", allQuestionsForCurrentUser);
+//        return "user/questions";
+//    }
+//
+//    @RequestMapping(value = "/my/advices")
+//    @ResponseBody
+//    public  Map<String, Object> getAllAnswersForCurrentUser () {
+//        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+//        HttpSession session = attr.getRequest().getSession(true);
+//        User currentUser = (User) session.getAttribute("currentUser");
+//        List<Advice> allAdvicesForCurrentUser = adviceRepository.findAllByUserId(currentUser.getId());
+//
+//        Map<String, Object> result = new HashMap<>();
+//        return result;
+//    }
 
 }
