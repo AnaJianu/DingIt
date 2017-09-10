@@ -47,11 +47,14 @@ public class HomepageController {
         HttpSession session = attr.getRequest().getSession(true);
         User currentUser = (User) session.getAttribute("currentUser");
 
-        List<Question> allQuestionsForCurrentUser = questionRepository.findByUserId(currentUser.getId());
-        List<Advice> allAdvicesForCurrentUser = adviceRepository.findAllByUserId(currentUser.getId());
+        if (currentUser != null && currentUser.getId() != null) {
+            List<Question> allQuestionsForCurrentUser = questionRepository.findByUserId(currentUser.getId());
+            List<Advice> allAdvicesForCurrentUser = adviceRepository.findAllByUserId(currentUser.getId());
 //        ModelAndView modelAndView = new ModelAndView();
-        model.addAttribute("userQuestions", allQuestionsForCurrentUser);
-        model.addAttribute("userAdvices", allAdvicesForCurrentUser);
+            model.addAttribute("userQuestions", allQuestionsForCurrentUser);
+            model.addAttribute("userAdvices", allAdvicesForCurrentUser);
+            model.addAttribute("currentUserFullName", currentUser.getFullName());
+        }
 
         return "homepage/homepage";
     }
