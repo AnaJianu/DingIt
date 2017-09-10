@@ -76,6 +76,13 @@ public class HomepageController {
         return "redirect:/home";
     }
 
+//    TODO: delete question
+//@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+//public String deleteQuestion(@PathVariable("id") Long questionId, Model model) {
+//    questionRepository.delete(questionId);
+//    return "redirect:/home";
+//}
+
     private User getUserFromSession() {
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         HttpSession session = attr.getRequest().getSession(true);

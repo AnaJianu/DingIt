@@ -1,5 +1,6 @@
 package ro.anajianu.dingit.repository;
 
+import org.springframework.aop.config.AdviceEntry;
 import org.springframework.data.repository.CrudRepository;
 import ro.anajianu.dingit.model.Advice;
 
@@ -11,4 +12,6 @@ import java.util.List;
 public interface AdviceRepository extends CrudRepository<Advice, Long> {
 
     List<Advice> findAllByUserId(Long userId);
+
+    List<Advice> findAllByQuestionId(Long questionId);
 }

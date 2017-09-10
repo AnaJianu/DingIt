@@ -65,8 +65,8 @@
             <li class="nav-item active">
                 <a class="nav-link" th:href="@{/home}">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/allQuestions}">See others' questions!</a>
+            <li>
+                <a class="nav-link" th:text="${currentUserFullName}"></a>
             </li>
         </ul>
         <form class="form-inline my-2 my-md-0">
@@ -82,9 +82,8 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="intro-text">
-                    <h1 class="name">Your activity</h1>
+                    <h1 class="name">Others' activity</h1>
                     <hr class="star-light"/>
-                    <span class="skills" th:text="${currentUserFullName}"></span>
                 </div>
             </div>
         </div>
@@ -94,51 +93,29 @@
 <!-- Portfolio Grid Section -->
 <section id="portfolio">
     <div class="container" id="userPortfolio">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <h2>Portfolio</h2>
-                <hr class="star-primary"/>
-            </div>
-        </div>
         <div>
-            <h3>My Questions</h3>
+            <h3>All Questions</h3>
             <table class="table table-striped" id="userQuestions">
                 <thead>
                 <tr>
                     <th>Nr.</th>
                     <th>Question</th>
                     <th>Advices</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
 
-                <tr th:each="question : ${userQuestions}">
+                <tr th:each="question : ${allQuestions}">
                     <td width="20%" th:text="${question.id}"></td>
                     <td width="20%" th:text="${question.questionText}"></td>
                     <td width="20%" th:each="advice: ${question.advices}">
-                                <p th:text="${advice.adviceText}"></p>
+                        <p th:text="${advice.adviceText}"></p>
                     </td>
-                </tr>
-
-                </tbody>
-            </table>
-            <a th:href="@{/home/addQuestion}" class="btn btn-lg btn-danger">Add Question</a>
-
-            <h3>My Advices</h3>
-            <table class="table table-striped" id="userAdvices">
-                <thead>
-                <tr>
-                    <th>Nr.</th>
-                    <th>Advice</th>
-                    <th>Question</th>
-                </tr>
-                </thead>
-                <tbody>
-
-                <tr th:each="advice : ${userAdvices}">
-                    <td width="20%" th:text="${advice.id}"></td>
-                    <td width="20%" th:text="${advice.adviceText}"></td>
-                    <td width="20%" th:text="${advice.question.questionText}"></td>
+                    <td>
+                        <a th:href="@{'/allQuestions/showOneQuestion/' + ${question.id}}" class="btn btn-lg btn-danger">
+                            See Question</a>
+                    </td>
                 </tr>
 
                 </tbody>
