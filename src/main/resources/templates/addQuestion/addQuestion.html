@@ -82,9 +82,9 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="intro-text">
-                    <h1 class="name">Your activity</h1>
+                    <h1 class="name"><span class="skills" th:text="${currentUserFullName}"></span></h1>
                     <hr class="star-light"/>
-                    <span class="skills" th:text="${currentUserFullName}"></span>
+
                 </div>
             </div>
         </div>
@@ -96,53 +96,18 @@
     <div class="container" id="userPortfolio">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2>Portfolio</h2>
+                <h2>New question</h2>
                 <hr class="star-primary"/>
             </div>
         </div>
         <div>
-            <h3>My Questions</h3>
-            <table class="table table-striped" id="userQuestions">
-                <thead>
-                <tr>
-                    <th>Nr.</th>
-                    <th>Question</th>
-                    <th>Advices</th>
-                </tr>
-                </thead>
-                <tbody>
+            <form th:object="${questionToAdd}" th:action="@{/home/saveQuestion}" action="#" method="post">
+                <input type="text" th:field="*{questionText}" class="form-control"
+                       placeholder="Question" />
+                <div style="clear: both; display: block; height: 10px;"></div>
+                <input type="submit" class="btn btn-success" value="Save"></input>
+            </form>
 
-                <tr th:each="question : ${userQuestions}">
-                    <td width="20%" th:text="${question.id}"></td>
-                    <td width="20%" th:text="${question.questionText}"></td>
-                    <td width="20%" th:each="advice: ${question.advices}">
-                                <p th:text="${advice.adviceText}"></p>
-                    </td>
-                </tr>
-
-                </tbody>
-            </table>
-            <a th:href="@{/home/addQuestion}" class="btn btn-lg btn-danger">Add Question</a>
-
-            <h3>My Advices</h3>
-            <table class="table table-striped" id="userAdvices">
-                <thead>
-                <tr>
-                    <th>Nr.</th>
-                    <th>Advice</th>
-                    <th>Question</th>
-                </tr>
-                </thead>
-                <tbody>
-
-                <tr th:each="advice : ${userAdvices}">
-                    <td width="20%" th:text="${advice.id}"></td>
-                    <td width="20%" th:text="${advice.adviceText}"></td>
-                    <td width="20%" th:text="${advice.question.questionText}"></td>
-                </tr>
-
-                </tbody>
-            </table>
         </div>
 
     </div>
@@ -192,3 +157,6 @@
 </body>
 
 </html>
+
+
+

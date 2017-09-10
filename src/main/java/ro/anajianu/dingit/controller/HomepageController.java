@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -43,14 +44,11 @@ public class HomepageController {
 
     @RequestMapping(value = "")
     public String showHomepage(Model model) {
-        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-        HttpSession session = attr.getRequest().getSession(true);
-        User currentUser = (User) session.getAttribute("currentUser");
+        User currentUser = getUserFromSession();
 
         if (currentUser != null && currentUser.getId() != null) {
             List<Question> allQuestionsForCurrentUser = questionRepository.findByUserId(currentUser.getId());
             List<Advice> allAdvicesForCurrentUser = adviceRepository.findAllByUserId(currentUser.getId());
-//        ModelAndView modelAndView = new ModelAndView();
             model.addAttribute("userQuestions", allQuestionsForCurrentUser);
             model.addAttribute("userAdvices", allAdvicesForCurrentUser);
             model.addAttribute("currentUserFullName", currentUser.getFullName());
@@ -59,31 +57,28 @@ public class HomepageController {
         return "homepage/homepage";
     }
 
-//    @RequestMapping(value = "/my/questions")
-//    public String getAllQuestionsForCurrentUser () {
-//
-//        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-//        HttpSession session = attr.getRequest().getSession(true);
-//        User currentUser = (User) session.getAttribute("currentUser");
-//
-//        List<Question> allQuestionsForCurrentUser = questionRepository.findByUserId(currentUser.getId());
-//
-////        TODO: build a dynamic table
-//        ModelAndView modelAndView = new ModelAndView();
-//        modelAndView.addObject("userQuestions", allQuestionsForCurrentUser);
-//        return "user/questions";
-//    }
-//
-//    @RequestMapping(value = "/my/advices")
-//    @ResponseBody
-//    public  Map<String, Object> getAllAnswersForCurrentUser () {
-//        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-//        HttpSession session = attr.getRequest().getSession(true);
-//        User currentUser = (User) session.getAttribute("currentUser");
-//        List<Advice> allAdvicesForCurrentUser = adviceRepository.findAllByUserId(currentUser.getId());
-//
-//        Map<String, Object> result = new HashMap<>();
-//        return result;
-//    }
+    @RequestMapping(value = "/addQuestion")
+    public String addQuestionForCurrentUser (Model model) {
+        User currentUser = getUserFromSession();
+        model.addAttribute("currentUserFullName", currentUser.getFullName());
+        model.addAttribute("questionToAdd", new Question());
 
+        return "addQuestion/addQuestion";
+    }
+
+    @RequestMapping(value = "/saveQuestion", method = RequestMethod.POST)
+    public String saveQuestionForCurrentUser(Question question) {
+        User currentUser = getUserFromSession();
+        question.setUser(currentUser);
+
+        questionRepository.save(question);
+
+        return "redirect:/home";
+    }
+
+    private User getUserFromSession() {
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session = attr.getRequest().getSession(true);
+        return (User) session.getAttribute("currentUser");
+    }
 }
