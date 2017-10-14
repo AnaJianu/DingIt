@@ -102,7 +102,6 @@
             <table class="table table-striped" id="userQuestions">
                 <thead>
                 <tr>
-                    <th>Nr.</th>
                     <th>User</th>
                     <th>Advice</th>
                     <th>Action</th>
@@ -111,7 +110,6 @@
 
                 <tbody>
                 <tr th:each="advice : ${advicesForCurrentQuestion}">
-                    <td width="20%" th:text="${advice.id}"></td>
                     <td width="20%" th:text="${advice.user.fullName}"></td>
                     <td width="20%" th:text="${advice.adviceText}"></td>
                     <td>

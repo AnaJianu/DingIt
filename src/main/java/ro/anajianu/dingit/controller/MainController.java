@@ -104,6 +104,15 @@ public class MainController {
         return loginResponse;
     }
 
+    @RequestMapping(value = "/logout")
+    public String logoutUser() {
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session = attr.getRequest().getSession(true);
+        session.invalidate();
+
+        return "redirect:/";
+    }
+
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public String testMethod () {
         return "Test";

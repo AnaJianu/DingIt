@@ -69,10 +69,7 @@
                 <a class="nav-link" th:href="@{/allQuestions}">See others' questions!</a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-md-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search"/>
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        <a th:href="@{/logout}" class="btn btn-outline-success my-2 my-sm-0">Logout</a>
     </div>
 </nav>
 
@@ -105,7 +102,6 @@
             <table class="table table-striped" id="userQuestions">
                 <thead>
                 <tr>
-                    <th>Nr.</th>
                     <th>Question</th>
                     <th>Actions</th>
                 </tr>
@@ -113,11 +109,7 @@
                 <tbody>
 
                 <tr th:each="question : ${userQuestions}">
-                    <td width="20%" th:text="${question.id}"></td>
                     <td width="20%" th:text="${question.questionText}"></td>
-                    <!--<td width="20%" th:each="advice: ${question.advices}">-->
-                                <!--<p th:text="${advice.adviceText}"></p>-->
-                    <!--</td>-->
                     <td>
                         <a th:href="@{'/allQuestions/showOneQuestion/' + ${question.id}}" class="btn btn-lg btn-danger">
                             See</a>
@@ -132,7 +124,6 @@
             <table class="table table-striped" id="userAdvices">
                 <thead>
                 <tr>
-                    <th>Nr.</th>
                     <th>Advice</th>
                     <th>Question</th>
                     <th>Actions</th>
@@ -141,7 +132,6 @@
                 <tbody>
 
                 <tr th:each="advice : ${userAdvices}">
-                    <td width="20%" th:text="${advice.id}"></td>
                     <td width="20%" th:text="${advice.adviceText}"></td>
                     <td width="20%" th:text="${advice.question.questionText}"></td>
                     <td>

@@ -98,7 +98,6 @@
             <table class="table table-striped" id="userQuestions">
                 <thead>
                 <tr>
-                    <th>Nr.</th>
                     <th>User</th>
                     <th>Question</th>
                     <th>Actions</th>
@@ -107,7 +106,6 @@
                 <tbody>
 
                 <tr th:each="question : ${allQuestions}">
-                    <td width="20%" th:text="${question.id}"></td>
                     <td width="20%" th:text="${question.user.username}"></td>
                     <td width="20%" th:text="${question.questionText}"></td>
                     <td>
