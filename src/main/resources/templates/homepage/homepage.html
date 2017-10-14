@@ -107,7 +107,7 @@
                 <tr>
                     <th>Nr.</th>
                     <th>Question</th>
-                    <th>Advices</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -115,8 +115,12 @@
                 <tr th:each="question : ${userQuestions}">
                     <td width="20%" th:text="${question.id}"></td>
                     <td width="20%" th:text="${question.questionText}"></td>
-                    <td width="20%" th:each="advice: ${question.advices}">
-                                <p th:text="${advice.adviceText}"></p>
+                    <!--<td width="20%" th:each="advice: ${question.advices}">-->
+                                <!--<p th:text="${advice.adviceText}"></p>-->
+                    <!--</td>-->
+                    <td>
+                        <a th:href="@{'/allQuestions/showOneQuestion/' + ${question.id}}" class="btn btn-lg btn-danger">
+                            See</a>
                     </td>
                 </tr>
 
@@ -131,6 +135,7 @@
                     <th>Nr.</th>
                     <th>Advice</th>
                     <th>Question</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -139,6 +144,10 @@
                     <td width="20%" th:text="${advice.id}"></td>
                     <td width="20%" th:text="${advice.adviceText}"></td>
                     <td width="20%" th:text="${advice.question.questionText}"></td>
+                    <td>
+                        <a th:href="@{'/allQuestions/showOneQuestion/' + ${advice.question.id}}" class="btn btn-lg btn-danger">
+                            See</a>
+                    </td>
                 </tr>
 
                 </tbody>

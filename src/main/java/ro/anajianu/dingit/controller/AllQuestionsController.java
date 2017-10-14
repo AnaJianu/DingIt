@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import ro.anajianu.dingit.model.Advice;
@@ -54,12 +55,41 @@ public class AllQuestionsController {
 
         Question questionById = questionRepository.findQuestionById(questionId);
         model.addAttribute("questionText", questionById.getQuestionText());
+        model.addAttribute("questionId", questionId);
 
         List<Advice> allAdvicesByQuestionId = adviceRepository.findAllByQuestionId(questionId);
         model.addAttribute("advicesForCurrentQuestion", allAdvicesByQuestionId);
 
         return "entireQuestionPage/entireQuestionPage";
     }
+
+    @RequestMapping(value = "/addAdvice/{questionId}")
+    public String addAdviceForCurrentUser (@PathVariable String questionId, Model model) {
+        User currentUser = getUserFromSession();
+        model.addAttribute("currentUserFullName", currentUser.getFullName());
+        model.addAttribute("adviceToAdd", new Advice());
+        model.addAttribute("questionId", questionId);
+
+        return "addAdvice/addAdvice";
+    }
+
+    @RequestMapping(value = "/saveAdviceFor/{questionId}", method = RequestMethod.POST)
+    public String saveAdviceForCurrentUser(@PathVariable Long questionId, Advice advice) {
+        User currentUser = getUserFromSession();
+        advice.setUser(currentUser);
+        advice.setQuestion(questionRepository.findQuestionById(questionId));
+
+        adviceRepository.save(advice);
+
+        return "redirect:/home";
+    }
+
+    @RequestMapping(value = "/deleteQuestion/{questionId}", method = RequestMethod.GET)
+    public String deleteQuestion(@PathVariable("questionId") Long questionId, Model model) {
+        questionRepository.delete(questionId);
+        return "redirect:/home";
+    }
+
 
     private User getUserFromSession() {
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
