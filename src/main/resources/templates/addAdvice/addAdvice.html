@@ -11,13 +11,13 @@
     <title>Q-stion</title>
 
     <!-- Bootstrap Core CSS -->
-    <link  rel="stylesheet" media="screen" th:href="@{../css/bootstrap.min.css}"/>
+    <link  rel="stylesheet" media="screen" th:href="@{../../css/bootstrap.min.css}"/>
 
     <!-- Theme CSS -->
-    <link rel="stylesheet" th:href="@{../css/freelancer.css}"/>
+    <link rel="stylesheet" th:href="@{../../css/freelancer.css}"/>
 
     <!-- Custom Fonts -->
-    <link rel="stylesheet" type="text/css" th:href="@{../css/font-awesome.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../../css/font-awesome.css}"/>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css"/>
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css"/>
 
@@ -29,12 +29,12 @@
     <![endif]-->
 
     <!-- jQuery -->
-    <script th:src="@{../js/jquery.min.js}"></script>
-    <script th:src="@{../js/tether.min.js}"></script>
+    <script th:src="@{../../js/jquery.min.js}"></script>
+    <script th:src="@{../../js/tether.min.js}"></script>
 
 
     <!-- Bootstrap Core JavaScript -->
-    <script th:src="@{../js/bootstrap.min.js}"></script>
+    <script th:src="@{../../js/bootstrap.min.js}"></script>
 
     <!-- Plugin JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
@@ -44,9 +44,7 @@
     <!--<script src="js/contact_me.js"></script>-->
 
     <!-- Theme JavaScript -->
-    <script th:src="@{../js/freelancer.js}"></script>
-    <script th:src="@{../js/homepage/homepage.js}"></script>
-    <script th:src="@{../js/addQuestion/addQuestion.js}"></script>
+    <script th:src="@{../../js/freelancer.js}"></script>
 
 </head>
 
@@ -65,8 +63,8 @@
             <li class="nav-item active">
                 <a class="nav-link" th:href="@{/home}">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li>
-                <a class="nav-link" th:text="${currentUserFullName}"></a>
+            <li class="nav-item">
+                <a class="nav-link" href="#">See others' questions!</a>
             </li>
         </ul>
         <form class="form-inline my-2 my-md-0">
@@ -82,8 +80,9 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="intro-text">
-                    <h1 class="name">Others' activity</h1>
+                    <h1 class="name"><span class="skills" th:text="${currentUserFullName}"></span></h1>
                     <hr class="star-light"/>
+
                 </div>
             </div>
         </div>
@@ -93,31 +92,20 @@
 <!-- Portfolio Grid Section -->
 <section id="portfolio">
     <div class="container" id="userPortfolio">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2>New advice</h2>
+                <hr class="star-primary"/>
+            </div>
+        </div>
         <div>
-            <h3>All Questions</h3>
-            <table class="table table-striped" id="userQuestions">
-                <thead>
-                <tr>
-                    <th>Nr.</th>
-                    <th>User</th>
-                    <th>Question</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
+            <form th:object="${adviceToAdd}" th:action="@{'/allQuestions/saveAdviceFor/' + ${questionId}}" action="#" method="post">
+                <input type="text" th:field="*{adviceText}" class="form-control"
+                       placeholder="Advice" />
+                <div style="clear: both; display: block; height: 10px;"></div>
+                <input type="submit" class="btn btn-success" value="Save"></input>
+            </form>
 
-                <tr th:each="question : ${allQuestions}">
-                    <td width="20%" th:text="${question.id}"></td>
-                    <td width="20%" th:text="${question.user.username}"></td>
-                    <td width="20%" th:text="${question.questionText}"></td>
-                    <td>
-                        <a th:href="@{'/allQuestions/showOneQuestion/' + ${question.id}}" class="btn btn-lg btn-danger">
-                            See</a>
-                    </td>
-                </tr>
-
-                </tbody>
-            </table>
         </div>
 
     </div>
@@ -149,7 +137,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    Copyright &copy; Q-stions 2017
+                    Copyright &copy; Q-stions
                 </div>
             </div>
         </div>
@@ -167,3 +155,6 @@
 </body>
 
 </html>
+
+
+

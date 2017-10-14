@@ -51,6 +51,15 @@ public class AllQuestionsController {
     @RequestMapping(value = "/showOneQuestion/{questionId}")
     public String showOneQuestionPage(@PathVariable Long questionId, Model model) {
         User currentUser = getUserFromSession();
+        Question questionByQuestionId = questionRepository.findQuestionById(questionId);
+        User userByQuestion = questionByQuestionId.getUser();
+
+        boolean canDeleteQuestion = false;
+        if (currentUser.getUsername().equals(userByQuestion.getUsername())) {
+            canDeleteQuestion = true;
+        }
+        model.addAttribute("canDeleteQuestion", canDeleteQuestion);
+
         model.addAttribute("currentUserFullName", currentUser.getFullName());
 
         Question questionById = questionRepository.findQuestionById(questionId);
