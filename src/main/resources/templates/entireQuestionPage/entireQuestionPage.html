@@ -84,8 +84,10 @@
                 <div class="intro-text">
                     <h1 class="name" th:text="${questionText}"></h1>
                     <hr class="star-light"/>
-                    <a th:href="@{'/allQuestions/deleteQuestion/' + ${questionId}}" class="btn btn-lg btn-danger">
+                    <div th:if="${canDeleteQuestion} == true">
+                        <a th:href="@{'/allQuestions/deleteQuestion/' + ${questionId}}" class="btn btn-lg btn-danger">
                         Delete question</a>
+                    </div>
                 </div>
             </div>
         </div>

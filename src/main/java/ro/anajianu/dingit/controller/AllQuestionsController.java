@@ -54,10 +54,8 @@ public class AllQuestionsController {
         Question questionByQuestionId = questionRepository.findQuestionById(questionId);
         User userByQuestion = questionByQuestionId.getUser();
 
-        boolean canDeleteQuestion = false;
-        if (currentUser.getUsername().equals(userByQuestion.getUsername())) {
-            canDeleteQuestion = true;
-        }
+        boolean canDeleteQuestion = currentUser.getUsername().equals(userByQuestion.getUsername());
+
         model.addAttribute("canDeleteQuestion", canDeleteQuestion);
 
         model.addAttribute("currentUserFullName", currentUser.getFullName());
