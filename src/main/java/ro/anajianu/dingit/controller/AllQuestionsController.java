@@ -18,6 +18,7 @@ import ro.anajianu.dingit.repository.QuestionRepository;
 import ro.anajianu.dingit.repository.UserRepository;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -94,6 +95,12 @@ public class AllQuestionsController {
     @RequestMapping(value = "/deleteQuestion/{questionId}", method = RequestMethod.GET)
     public String deleteQuestion(@PathVariable("questionId") Long questionId, Model model) {
         questionRepository.delete(questionId);
+        return "redirect:/home";
+    }
+
+    @RequestMapping(value = "/deleteAdvice/{adviceId}", method = RequestMethod.GET)
+    public String deleteAdvice(@PathVariable("adviceId") Long adviceId, Model model) {
+        adviceRepository.delete(adviceId);
         return "redirect:/home";
     }
 
