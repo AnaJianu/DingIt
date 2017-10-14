@@ -53,9 +53,12 @@ public class HomepageController {
             model.addAttribute("userQuestions", allQuestionsForCurrentUser);
             model.addAttribute("userAdvices", allAdvicesForCurrentUser);
             model.addAttribute("currentUserFullName", currentUser.getFullName());
+
+            return "homepage/homepage";
         }
 
-        return "homepage/homepage";
+        return "redirect:/";
+
     }
 
     @RequestMapping(value = "/addQuestion")
