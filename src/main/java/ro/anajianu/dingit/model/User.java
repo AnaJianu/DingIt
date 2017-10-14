@@ -1,10 +1,7 @@
 package ro.anajianu.dingit.model;
 
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import javax.jnlp.IntegrationService;
-import javax.jws.soap.SOAPBinding;
 import javax.persistence.*;
 import java.util.List;
 
