@@ -13,7 +13,7 @@ $(document).ready(function () {
     })
 });
 
-var hostname = "http://www.dingit.com:8080";
+var hostname = "http://www.q-stion.com:8080";
 
 var AJAX = {
     SEND_REQUEST_FOR_REGISTRATION: "/register",
